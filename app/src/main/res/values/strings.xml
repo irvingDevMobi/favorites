@@ -1,3 +1,9 @@
 <resources>
+    <!-- General -->
     <string name="app_name">Favorites</string>
+    <string name="empty" translatable="false" />
+
+    <!-- Main Screen -->
+    <string name="main_action_add">Add New Collection</string>
+
 </resources>
