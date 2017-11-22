@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 
     private static final int GRID_COLUMNS = 2;
 
-    private RecyclerView recyclerView;
+    private ProductListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = findViewById(R.id.main_recycler);
+        RecyclerView recyclerView = findViewById(R.id.main_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(this, GRID_COLUMNS);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -47,6 +47,8 @@ public class MainActivity extends BaseActivity<MainViewModel> {
             }
         });
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new ProductListAdapter();
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -88,8 +90,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
         list.add(mainUiModel.getCollections());
         list.add(mainUiModel.getTotalProducts());
         list.addAll(mainUiModel.getAllProducts());
-        ProductListAdapter adapter = new ProductListAdapter(list);
-        recyclerView.setAdapter(adapter);
+        adapter.setData(list);
     }
 
     private void showErrorMessage() {

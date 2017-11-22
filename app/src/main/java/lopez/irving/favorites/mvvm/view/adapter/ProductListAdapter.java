@@ -1,5 +1,6 @@
 package lopez.irving.favorites.mvvm.view.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lopez.irving.favorites.R;
@@ -31,8 +33,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List items;
 
-    public ProductListAdapter(List items) {
+    public ProductListAdapter() {
+        this.items = new ArrayList();
+    }
+
+    public void setData(@NonNull List items) {
         this.items = items;
+        notifyDataSetChanged();
     }
 
     @Override
