@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/products_header_padding"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/products_header_title"
+        style="@style/AppTheme.Text.H1"
+        android:text="@string/products_header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

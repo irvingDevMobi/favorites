@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/product_background"
+    android:layout_margin="@dimen/product_margin"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/product_height">
+
+    <ImageView
+        android:id="@+id/product_item_image"
+        android:scaleType="fitXY"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/product_item_condition"
+            tools:src="@drawable/ic_nd_ic_plus_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/product_item_level"
+            tools:src="@drawable/ic_nd_ic_plus_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/product_item_imported"
+            android:src="@drawable/ic_nd_ic_international_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/product_item_free_shipping"
+            android:src="@drawable/ic_nd_ic_free_shipping_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/product_item_favorite"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/product_favorite_icon_margin"
+        android:src="@drawable/ic_nd_ic_add_fav_on_32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
