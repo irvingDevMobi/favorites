@@ -5,7 +5,7 @@
     <dimen name="container_radius">6dp</dimen>
     <dimen name="products_header_padding">32dp</dimen>
     <dimen name="product_margin">9dp</dimen>
-    <dimen name="product_favorite_icon_margin">16dp</dimen>
+    <dimen name="product_favorite_icon_margin">10dp</dimen>
     <dimen name="collection_images_container_padding">10dp</dimen>
     <dimen name="collection_image_small_size">46dp</dimen>
     <dimen name="collection_image_size">100dp</dimen>
