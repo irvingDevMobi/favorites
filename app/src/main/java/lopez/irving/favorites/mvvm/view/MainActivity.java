@@ -82,7 +82,6 @@ public class MainActivity extends BaseActivity<MainViewModel> {
                         showErrorMessage();
                     }
                 }));
-
     }
 
     private void fillRecyclerView(@NonNull MainUiModel mainUiModel) {

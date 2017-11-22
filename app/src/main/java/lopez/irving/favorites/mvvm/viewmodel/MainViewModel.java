@@ -39,7 +39,6 @@ public class MainViewModel extends BaseViewModel {
         super(dataManager, schedulerProvider);
         uiModelPublishSubject = PublishSubject.create();
         loadingIndicatorSubject = BehaviorSubject.create();
-        fetchFavorites();
     }
 
     private void fetchFavorites() {
@@ -74,6 +73,7 @@ public class MainViewModel extends BaseViewModel {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
+                        fetchFavorites();
                         loadingIndicatorSubject.onNext(true);
                     }
                 })
