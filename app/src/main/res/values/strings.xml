@@ -6,5 +6,6 @@
     <!-- Main Screen -->
     <string name="main_action_add">Add New Collection</string>
     <string name="products_header_title">Todos mis favoritos (%1$d)</string>
+    <string name="network_error">Error</string>
 
 </resources>

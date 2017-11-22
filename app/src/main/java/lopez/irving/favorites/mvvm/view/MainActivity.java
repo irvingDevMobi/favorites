@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +47,12 @@ public class MainActivity extends BaseActivity<MainViewModel> {
             }
         });
         recyclerView.setLayoutManager(layoutManager);
-        subscribeToUiModel();
     }
 
-    private void subscribeToUiModel() {
+    @Override
+    public void bindViewModel() {
         AppSchedulerProvider schedulerProvider = new AppSchedulerProvider();
-        viewModel.getUiModel()
+        compositeDisposable.add(viewModel.getUiModel()
                 .subscribeOn(schedulerProvider.background())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(new Consumer<MainUiModel>() {
@@ -58,7 +60,27 @@ public class MainActivity extends BaseActivity<MainViewModel> {
                     public void accept(MainUiModel mainUiModel) throws Exception {
                         fillRecyclerView(mainUiModel);
                     }
-                });
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showErrorMessage();
+                    }
+                }));
+        compositeDisposable.add(viewModel.getLoadingIndicatorVisibility()
+                .subscribeOn(schedulerProvider.background())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean visible) throws Exception {
+                        findViewById(R.id.main_progress).setVisibility(visible ? View.VISIBLE : View.GONE);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showErrorMessage();
+                    }
+                }));
+
     }
 
     private void fillRecyclerView(@NonNull MainUiModel mainUiModel) {
@@ -68,6 +90,10 @@ public class MainActivity extends BaseActivity<MainViewModel> {
         list.addAll(mainUiModel.getAllProducts());
         ProductListAdapter adapter = new ProductListAdapter(list);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void showErrorMessage() {
+        Toast.makeText(this, R.string.network_error, Toast.LENGTH_LONG).show();
     }
 
     @Override

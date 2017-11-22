@@ -84,9 +84,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 .load(uiModel.getIconUrl()).into(productViewHolder.image);
         productViewHolder.conditionBadge.setImageResource(uiModel.getConditionTypeImageRes());
         productViewHolder.levelBadge.setImageResource(uiModel.getLinioPlusImageRes());
-        productViewHolder.importedBadge.setVisibility(uiModel.isImported() ? View.VISIBLE : View.INVISIBLE);
-        productViewHolder.freeShippingBadge.setVisibility(uiModel.isFreeShipping() ? View.VISIBLE : View.INVISIBLE);
-        productViewHolder.favorite.setVisibility(uiModel.isFavorite() ? View.VISIBLE : View.INVISIBLE);
+        productViewHolder.importedBadge.setVisibility(uiModel.isImported() ? View.VISIBLE : View.GONE);
+        productViewHolder.freeShippingBadge.setVisibility(uiModel.isFreeShipping() ? View.VISIBLE : View.GONE);
+        productViewHolder.favorite.setVisibility(uiModel.isFavorite() ? View.VISIBLE : View.GONE);
     }
 
     @Override

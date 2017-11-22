@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import lopez.irving.favorites.R;
 import lopez.irving.favorites.app.scheduler.SchedulerProvider;
@@ -31,10 +33,12 @@ public class MainViewModel extends BaseViewModel {
     private static final String NEW = "new";
 
     private PublishSubject<MainUiModel> uiModelPublishSubject;
+    private BehaviorSubject<Boolean> loadingIndicatorSubject;
 
     public MainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         uiModelPublishSubject = PublishSubject.create();
+        loadingIndicatorSubject = BehaviorSubject.create();
         fetchFavorites();
     }
 
@@ -55,13 +59,42 @@ public class MainViewModel extends BaseViewModel {
                             uiModelPublishSubject.onNext(new MainUiModel(collectionUiModels, productUiModels));
                         }
                     }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        uiModelPublishSubject.onError(new Throwable());
+                    }
                 })
         );
     }
 
     @NonNull
     public Observable<MainUiModel> getUiModel() {
-        return uiModelPublishSubject.hide();
+        return uiModelPublishSubject.hide()
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        loadingIndicatorSubject.onNext(true);
+                    }
+                })
+                .doOnNext(new Consumer<MainUiModel>() {
+                    @Override
+                    public void accept(MainUiModel mainUiModel) throws Exception {
+                        loadingIndicatorSubject.onNext(false);
+                    }
+                })
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        loadingIndicatorSubject.onNext(false);
+                    }
+                })
+                ;
+    }
+
+    @NonNull
+    public Observable<Boolean> getLoadingIndicatorVisibility() {
+        return loadingIndicatorSubject.hide();
     }
 
     @NonNull
